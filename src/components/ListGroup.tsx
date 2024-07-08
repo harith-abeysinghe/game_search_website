@@ -1,14 +1,12 @@
 import { useState } from "react";
+import Alert from "./Alert";
+interface Props {
+	items: string[];
+	heading: string;
+	onSelectedItem: (item: string) => void;
+}
 
-function ListGroup() {
-	let items = [
-		"GTA V",
-		"The Witcher 3",
-		"Cyberpunk 2077",
-		"Red Dead Redemption 2",
-		"Minecraft",
-	];
-
+function ListGroup({ items, heading, onSelectedItem }: Props) {
 	let selectedIndex = 0;
 	//Hook -
 	const arr = useState(-1);
@@ -17,7 +15,7 @@ function ListGroup() {
 
 	return (
 		<>
-			<h1>List Group</h1>
+			<h1>{heading}</h1>
 
 			{items.length === 0 && "No items found"}
 			<ul className="list-group">
@@ -29,7 +27,10 @@ function ListGroup() {
 								: "list-group-item"
 						}
 						key={item}
-						onClick={() => setSelectedIndex(index)}
+						onClick={() => {
+							setSelectedIndex(index);
+							onSelectedItem(item);
+						}}
 					>
 						{item}
 					</li>
